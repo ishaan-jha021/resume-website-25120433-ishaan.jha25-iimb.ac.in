@@ -50,20 +50,42 @@ nav {
     color: var(--accent);
 }
 
-nav ul {
+/* Mobile Navigation - Checkbox Hack Style */
+.menu-checkbox {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: var(--accent);
+    margin: 5px 0;
+    transition: var(--transition);
+}
+
+.nav-links {
     display: flex;
     list-style: none;
     gap: 1.5rem;
 }
 
-nav ul li a {
+.nav-links li a {
     text-decoration: none;
     color: var(--text-primary);
     font-weight: 600;
     transition: var(--transition);
 }
 
-nav ul li a:hover {
+.nav-links li a:hover {
     color: var(--accent);
 }
 
@@ -143,6 +165,88 @@ section {
 .btn:hover {
     opacity: 0.8;
     transform: translateY(-2px);
+}
+
+/* Mobile Layout - Media Query (Responsive Design) */
+@media (max-width: 768px) {
+    /* Hamburger logic */
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--secondary-bg);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: 0.5s ease-in-out;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    }
+
+    /* Show menu when checkbox is CHECKED */
+    .menu-checkbox:checked ~ .nav-links {
+        right: 0;
+    }
+
+    /* Transform hamburger into an 'X' */
+    .menu-checkbox:checked ~ .hamburger span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 6px);
+    }
+    .menu-checkbox:checked ~ .hamburger span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-checkbox:checked ~ .hamburger span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    /* Hero Stacking */
+    .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding-top: 8rem;
+        min-height: auto;
+    }
+
+    .hero-content {
+        margin-top: 3rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .profile-img {
+        width: 250px;
+        height: 250px;
+    }
+
+    /* Grid Stacking for project/experience cards */
+    .projects-grid, .skills-container, .por-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Table Responsiveness */
+    .education-table {
+        font-size: 0.85rem;
+    }
+
+    .education-table th, .education-table td {
+        padding: 0.8rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    section {
+        padding: 4rem 1.5rem;
+    }
 }
 
 /* Table Styling - Module Requirement */
@@ -259,16 +363,3 @@ footer {
     text-decoration: none;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .hero {
-        flex-direction: column-reverse;
-        text-align: center;
-    }
-    .hero-content {
-        margin-top: 2rem;
-    }
-    nav ul {
-        display: none;
-    }
-}
